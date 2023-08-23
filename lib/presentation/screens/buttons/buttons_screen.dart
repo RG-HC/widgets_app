@@ -62,7 +62,7 @@ class _ButtonsView extends StatelessWidget {
                 icon: const Icon(Icons.email_rounded),
                 label: const Text('Text Icon')),
 
-            //Todo: custom button
+            const CustomButtons(),
 
             IconButton(onPressed: () {}, icon: const Icon(Icons.west_outlined)),
             IconButton(
@@ -73,6 +73,29 @@ class _ButtonsView extends StatelessWidget {
                   iconColor:  const MaterialStatePropertyAll(Colors.white),
                 ))
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomButtons extends StatelessWidget {
+  const CustomButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final colors = Theme.of(context).colorScheme;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Material(
+        color: colors.primary,
+        child: InkWell(
+          onTap: (){},
+          child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text('Hola mundo', style: TextStyle(color: Colors.white),)),
         ),
       ),
     );
