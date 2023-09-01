@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({super.key});
+  final GlobalKey<ScaffoldState> scaffolKey;
+
+  const SideMenu({super.key, required this.scaffolKey});
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -21,41 +24,30 @@ class _SideMenuState extends State<SideMenu> {
           setState(() {
             navDrawerIndex = value;
           });
+
+          final menuItem = appMenuItems[value];
+          context.push(menuItem.link);
+
+          widget.scaffolKey.currentState?.closeDrawer();
         },
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(28, hasNotch ? 0 : 20, 16, 10),
             child: const Text('Main'),
           ),
-
-          ...appMenuItems
-          .sublist(0,3)
-          .map((item) => NavigationDrawerDestination(
-              icon: Icon(item.icon),
-              label: Text(item.title)
-              )
-              ),
-
+          ...appMenuItems.sublist(0, 3).map((item) =>
+              NavigationDrawerDestination(
+                  icon: Icon(item.icon), label: Text(item.title))),
           const Padding(
             padding: EdgeInsets.fromLTRB(28, 16, 16, 10),
             child: Divider(),
-            ),
-
-
-            const Padding(
+          ),
+          const Padding(
             padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
             child: Text('More options'),
-            ),
-
-          ...appMenuItems
-          .sublist(3)
-          .map((item) => NavigationDrawerDestination(
-              icon: Icon(item.icon),
-              label: Text(item.title)
-              )
-              ),
-
-          
+          ),
+          ...appMenuItems.sublist(3).map((item) => NavigationDrawerDestination(
+              icon: Icon(item.icon), label: Text(item.title))),
         ]);
   }
 }
