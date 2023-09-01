@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 
+import '../../widgets/side_menu.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -13,7 +15,8 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Flutter + Material 3'),
       ),
-      body: const _HomeView() ,
+      body: const _HomeView(),
+      drawer: const SideMenu()
     );
   }
 }
@@ -23,18 +26,13 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-   
-
     return ListView.builder(
-
         itemCount: appMenuItems.length,
-        itemBuilder: (context, index){
+        itemBuilder: (context, index) {
           final menuItem = appMenuItems[index];
-          
+
           return _CustomListTitle(menuItem: menuItem);
-        }
-    );
+        });
   }
 }
 
@@ -47,7 +45,6 @@ class _CustomListTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final colors = Theme.of(context).colorScheme;
 
     return ListTile(
@@ -66,10 +63,7 @@ class _CustomListTitle extends StatelessWidget {
         context.push(menuItem.link);
 
         // context.pushNamed(CardsScreen.name);
-
-
       },
     );
   }
 }
-
