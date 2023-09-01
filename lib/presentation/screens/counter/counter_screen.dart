@@ -16,10 +16,14 @@ class CounterScreen extends ConsumerWidget {
         title: const Text('Couter Screen'),
       ),
       body: Center(
-        child: Text('Valor: $clickCounter', style: Theme.of(context).textTheme.titleLarge),
+        child: Text('Valor: $clickCounter',
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          ref.read(counterProvider.notifier).state++;
+          // ref.read(counterProvider.notifier).update((state) => state + 1);
+        },
         child: const Icon(Icons.add),
       ),
     );
