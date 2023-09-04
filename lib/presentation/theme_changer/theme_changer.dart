@@ -36,7 +36,6 @@ class _ThemeChangerView extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
     final int selectedColor = ref.watch(selectedColorProvider);
-    final bool isDarkmode = ref.watch(isDarkmodeProvider);
 
     return ListView.builder(
       itemCount: colors.length,
