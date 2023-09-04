@@ -19,7 +19,9 @@ class ThemeChangerScreen extends ConsumerWidget {
               icon: Icon(isDarkmode
                   ? Icons.light_mode_outlined
                   : Icons.dark_mode_outlined),
-              onPressed: () {})
+              onPressed: () {
+                ref.read(isDarkmodeProvider.notifier).update((state) => !state);
+              })
         ],
       ),
       body: const _ThemeChangerView(),
@@ -33,6 +35,8 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
+    final int selectedColor = ref.watch(selectedColorProvider);
+    final bool isDarkmode = ref.watch(isDarkmodeProvider);
 
     return ListView.builder(
       itemCount: colors.length,
@@ -43,11 +47,13 @@ class _ThemeChangerView extends ConsumerWidget {
             'Este Color',
             style: TextStyle(color: color),
           ),
-          subtitle: Text('${color.value}') ,
+          subtitle: Text('${color.value}'),
           activeColor: color,
           value: index,
-          groupValue: 0,
-          onChanged: (value) {},
+          groupValue: selectedColor,
+          onChanged: (value) {
+            ref.read(selectedColorProvider.notifier).state = index;
+          },
         );
       },
     );
